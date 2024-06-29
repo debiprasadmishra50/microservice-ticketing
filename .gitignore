@@ -1,0 +1,5 @@
+z-resources/
+.DS_Store
+node_modules/
+.next/
+build/

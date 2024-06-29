@@ -1,0 +1,77 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: debirapid/ticket-auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+    - image: debirapid/ticket-tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+    - image: debirapid/ticket-orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+    - image: debirapid/ticket-expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+    - image: debirapid/ticket-payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+    - image: debirapid/ticket-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: "**/*.js"
+          - dest: .
+            src: "**/*.jsx"
