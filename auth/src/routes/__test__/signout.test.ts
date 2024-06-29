@@ -10,7 +10,10 @@ describe("signout", () => {
 
     expect(createResponse.get("Set-Cookie")).toBeDefined();
 
-    const response = await request(app).post("/api/users/signout").expect(200);
+    const response = await request(app)
+      .post("/api/users/signout")
+      .set("Cookie", createResponse.get("Set-Cookie")[0])
+      .expect(200);
 
     expect(response.get("Set-Cookie")[0]).toEqual(
       "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly"
